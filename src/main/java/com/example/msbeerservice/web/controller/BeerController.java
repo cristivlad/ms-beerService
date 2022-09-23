@@ -1,8 +1,8 @@
 package com.example.msbeerservice.web.controller;
 
+import com.example.msbeerservice.services.BeerService;
 import com.example.msbeerservice.web.model.BeerDto;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,21 +14,35 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1/beers")
 public class BeerController {
 
+    private final BeerService beerService;
+
+    public BeerController(BeerService beerService) {
+        this.beerService = beerService;
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID id) {
-        // toDo impl
-        return new ResponseEntity<>(BeerDto.builder().build(), OK);
+        return new ResponseEntity<>(beerService.getBeerById(id), OK);
     }
 
     @PostMapping
-    public ResponseEntity createBeer(@RequestBody BeerDto beerDto) {
-        // toDo impl
-        return new ResponseEntity(CREATED);
+    public ResponseEntity<HttpHeaders> createBeer(@RequestBody BeerDto beerDto) {
+        BeerDto beer = beerService.createBeer(beerDto);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/v1/beers/" + beer.getId().toString());
+
+        return new ResponseEntity<>(headers, CREATED);
     }
 
     @PutMapping("{id}")
     public ResponseEntity updateBeerById(@PathVariable UUID id, @RequestBody BeerDto beerDto) {
         // toDo impl
         return new ResponseEntity(NO_CONTENT);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void deleteBeer(@PathVariable UUID id) {
+        beerService.deleteBeer(id);
     }
 }
