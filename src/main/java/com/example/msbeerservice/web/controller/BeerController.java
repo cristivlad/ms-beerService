@@ -3,7 +3,9 @@ package com.example.msbeerservice.web.controller;
 import com.example.msbeerservice.services.BeerService;
 import com.example.msbeerservice.web.model.BeerDto;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,7 +28,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpHeaders> createBeer(@RequestBody BeerDto beerDto) {
+    public ResponseEntity<HttpHeaders> createBeer(@Validated @RequestBody BeerDto beerDto) {
         BeerDto beer = beerService.createBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/beers/" + beer.getId().toString());
@@ -35,9 +37,9 @@ public class BeerController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity updateBeerById(@PathVariable UUID id, @RequestBody BeerDto beerDto) {
+    public ResponseEntity<HttpStatus> updateBeerById(@PathVariable UUID id, @Validated @RequestBody BeerDto beerDto) {
         // toDo impl
-        return new ResponseEntity(NO_CONTENT);
+        return new ResponseEntity<>(NO_CONTENT);
     }
 
     @DeleteMapping("{id}")
