@@ -28,14 +28,17 @@ public class Beer {
     private Long version;
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(updatable = false, name = "created_date")
     private Timestamp createdDate;
 
     @UpdateTimestamp
+    @Column(name = "last_modified_date")
     private Timestamp lastModifiedDate;
 
+    @Column(name = "beer_name")
     private String beerName;
 
+    @Column(name = "beer_style")
     private String beerStyle;
 
     @Column(unique = true)
@@ -43,7 +46,9 @@ public class Beer {
 
     private BigDecimal price;
 
+    @Column(name = "min_on_hand")
     private Integer minQOnHand;
 
+    @Column(name = "quantity_to_brew")
     private Integer quantityToBrew;
 }
