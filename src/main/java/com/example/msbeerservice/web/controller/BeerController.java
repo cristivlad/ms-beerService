@@ -3,7 +3,6 @@ package com.example.msbeerservice.web.controller;
 import com.example.msbeerservice.services.BeerService;
 import com.example.msbeerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,22 +25,12 @@ public class BeerController {
 
     @PostMapping
     public ResponseEntity<BeerDto> createBeer(@Validated @RequestBody BeerDto beerDto) {
-        BeerDto created = beerService.createBeer(beerDto);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/v1/beers/" + created.getId().toString());
-
-        return new ResponseEntity<>(created, CREATED);
+        return new ResponseEntity<>(beerService.createBeer(beerDto), CREATED);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<BeerDto> updateBeerById(@PathVariable UUID id, @Validated @RequestBody BeerDto beerDto) {
-        var dto = beerService.updateBeer(id, beerDto);
-        return new ResponseEntity<>(dto, NO_CONTENT);
+        return new ResponseEntity<>(beerService.updateBeer(id, beerDto), NO_CONTENT);
     }
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(NO_CONTENT)
-    public void deleteBeer(@PathVariable UUID id) {
-        beerService.deleteBeer(id);
-    }
 }

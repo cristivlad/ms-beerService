@@ -37,8 +37,4 @@ public class BeerServiceImpl implements BeerService {
         return mapper.assembleBeerDto(beerRepository.save(beer));
     }
 
-    @Override
-    public void deleteBeer(UUID id) {
-        log.debug("Deleting a beer...");
-    }
 }
