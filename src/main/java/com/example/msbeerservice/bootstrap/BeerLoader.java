@@ -9,8 +9,12 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @RequiredArgsConstructor
-//@Component
+@Component
 public class BeerLoader implements CommandLineRunner {
+
+    public static final String BEER_1_UPC = "0631234200036";
+    public static final String BEER_2_UPC = "0631234300019";
+    public static final String BEER_3_UPC = "0083783375213";
 
     private final BeerRepository beerRepository;
 
@@ -26,7 +30,7 @@ public class BeerLoader implements CommandLineRunner {
                     .beerStyle("IPA")
                     .quantityToBrew(200)
                     .minQOnHand(12)
-                    .upc(37252L)
+                    .upc(BEER_1_UPC)
                     .price(new BigDecimal("12.95"))
                     .build());
             beerRepository.save(Beer.builder()
@@ -34,7 +38,15 @@ public class BeerLoader implements CommandLineRunner {
                     .beerStyle("Pale Ale")
                     .quantityToBrew(200)
                     .minQOnHand(12)
-                    .upc(23553222L)
+                    .upc(BEER_2_UPC)
+                    .price(new BigDecimal("11.95"))
+                    .build());
+            beerRepository.save(Beer.builder()
+                    .beerName("No Hammers On the Bar")
+                    .beerStyle("Pale_Ale")
+                    .quantityToBrew(200)
+                    .minQOnHand(12)
+                    .upc(BEER_3_UPC)
                     .price(new BigDecimal("11.95"))
                     .build());
         }

@@ -25,12 +25,12 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpHeaders> createBeer(@Validated @RequestBody BeerDto beerDto) {
-        BeerDto beer = beerService.createBeer(beerDto);
+    public ResponseEntity<BeerDto> createBeer(@Validated @RequestBody BeerDto beerDto) {
+        BeerDto created = beerService.createBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/v1/beers/" + beer.getId().toString());
+        headers.add("Location", "/api/v1/beers/" + created.getId().toString());
 
-        return new ResponseEntity<>(headers, CREATED);
+        return new ResponseEntity<>(created, CREATED);
     }
 
     @PutMapping("{id}")
