@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
+
 import java.math.BigDecimal;
 
 import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @JsonTest
-class BeerDtoTest{
+class BeerDtoTest {
 
     @Autowired
     ObjectMapper objectMapper;
