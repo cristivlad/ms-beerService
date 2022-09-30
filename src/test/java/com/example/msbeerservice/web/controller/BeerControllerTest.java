@@ -44,7 +44,7 @@ class BeerControllerTest {
     void getBeerById() throws Exception {
         when(beerService.getBeerById(any(), any())).thenReturn(getValidBeerDto());
 
-        mockMvc.perform(get("/api/v1/beers/{beerId}", randomUUID())
+        mockMvc.perform(get("/api/v1/beer/{beerId}", randomUUID())
                 .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("v1/beer", pathParameters(
@@ -60,7 +60,7 @@ class BeerControllerTest {
 
         when(beerService.createBeer(any())).thenReturn(getValidBeerDto());
 
-        mockMvc.perform(post("/api/v1/beers/")
+        mockMvc.perform(post("/api/v1/beer/")
                 .contentType(APPLICATION_JSON)
                         .content(beerDtoJson))
                 .andExpect(status().isCreated());
@@ -73,7 +73,7 @@ class BeerControllerTest {
 
         when(beerService.updateBeer(any(), any())).thenReturn(getValidBeerDto());
 
-        mockMvc.perform(put("/api/v1/beers/" + randomUUID())
+        mockMvc.perform(put("/api/v1/beer/" + randomUUID())
                 .contentType(APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isNoContent());

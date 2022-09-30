@@ -1,5 +1,6 @@
 package com.example.msbeerservice.services;
 
+import com.example.msbeerservice.domain.Beer;
 import com.example.msbeerservice.web.model.BeerDto;
 import com.example.msbeerservice.web.model.BeerPagedList;
 import com.example.msbeerservice.web.model.BeerStyleEnum;
@@ -14,4 +15,6 @@ public interface BeerService {
     BeerDto updateBeer(UUID id, BeerDto beerDto);
 
     BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, boolean showInventoryOnHand);
+
+    BeerDto getByUpc(String upc);
 }
