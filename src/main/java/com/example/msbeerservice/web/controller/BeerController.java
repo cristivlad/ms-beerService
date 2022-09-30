@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.*;
@@ -25,8 +26,12 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping("{id}")
-    public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID id) {
-        return new ResponseEntity<>(beerService.getBeerById(id), OK);
+    public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID id,
+                                               @RequestParam(value = "showInventoryOnHand", required = false) boolean showInventoryOnHand) {
+        if (Objects.isNull(showInventoryOnHand)) {
+            showInventoryOnHand = false;
+        }
+        return new ResponseEntity<>(beerService.getBeerById(id, showInventoryOnHand), OK);
     }
 
     @PostMapping
@@ -43,7 +48,13 @@ public class BeerController {
     public ResponseEntity<BeerPagedList> listBeer(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                   @RequestParam(value = "beerName", required = false) String beerName,
-                                                  @RequestParam(value = "beerStyle", required = false) BeerStyleEnum beerStyle) {
+                                                  @RequestParam(value = "beerStyle", required = false) BeerStyleEnum beerStyle,
+                                                  @RequestParam(value = "showInventoryOnHand", required = false) boolean showInventoryOnHand) {
+
+        if (Objects.isNull(showInventoryOnHand)) {
+            showInventoryOnHand = false;
+        }
+
         if (pageNumber == null || pageNumber < 0) {
             pageNumber = DEFAULT_PAGE_NUMBER;
         }
@@ -52,7 +63,7 @@ public class BeerController {
             pageSize = DEFAULT_PAGE_SIZE;
         }
 
-        BeerPagedList beerList = beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize));
+        BeerPagedList beerList = beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand);
 
         return new ResponseEntity<>(beerList, OK);
     }

@@ -10,6 +10,6 @@ import org.mapstruct.Mapper;
 public interface BeerMapper {
 
     Beer assembleBeer(BeerDto dto);
-
+    BeerDto assembleDtoWithInventory(Beer beer);
     BeerDto assembleBeerDto(Beer entity);
 }
