@@ -1,6 +1,5 @@
 package com.example.msbeerservice.services;
 
-import com.example.msbeerservice.domain.Beer;
 import com.example.msbeerservice.web.model.BeerDto;
 import com.example.msbeerservice.web.model.BeerPagedList;
 import com.example.msbeerservice.web.model.BeerStyleEnum;

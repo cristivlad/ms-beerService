@@ -35,7 +35,7 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getBeerById(id, showInventoryOnHand), OK);
     }
 
-    @PostMapping
+    @PostMapping("/beer")
     public ResponseEntity<BeerDto> createBeer(@Validated @RequestBody BeerDto beerDto) {
         return new ResponseEntity<>(beerService.createBeer(beerDto), CREATED);
     }

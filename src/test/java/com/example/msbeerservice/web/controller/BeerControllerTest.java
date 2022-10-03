@@ -17,6 +17,8 @@ import java.math.BigDecimal;
 
 import static java.util.UUID.randomUUID;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -42,8 +44,9 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() throws Exception {
-        when(beerService.getBeerById(any(), any())).thenReturn(getValidBeerDto());
+//        when(beerService.getBeerById(any(), any())).thenReturn(getValidBeerDto());
 
+        given(beerService.getBeerById(any(), anyBoolean())).willReturn(getValidBeerDto());
         mockMvc.perform(get("/api/v1/beer/{beerId}", randomUUID())
                 .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
