@@ -1,4 +1,4 @@
-package com.example.msbeerservice.services;
+package com.example.msbeerservice.services.brewing;
 
 import com.example.msbeerservice.config.JmsConfig;
 import com.example.msbeerservice.domain.Beer;
