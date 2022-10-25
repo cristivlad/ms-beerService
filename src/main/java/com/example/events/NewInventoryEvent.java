@@ -1,4 +1,4 @@
-package com.example.msbeerservice.events;
+package com.example.events;
 
 import com.example.msbeerservice.web.model.BeerDto;
 import lombok.NoArgsConstructor;
